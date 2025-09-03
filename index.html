@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -15,7 +17,7 @@
             background-image: radial-gradient(#ffffff15 1px, transparent 1px), linear-gradient(to bottom right, #4b0082, #1a0841);
             background-size: 5px 5px, cover;
             color: #f0f0f0;
-            overflow-x: hidden;
+            overflow-x: hidden;#f0f0f0;
             position: relative;
         }
         .container {
@@ -40,6 +42,8 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         @media (min-width: 640px) {
             .main-heading { font-size: 4rem; }
@@ -82,6 +86,7 @@
             position: absolute;
             animation: float 10s ease-in-out infinite;
             z-index: 10;
+            cursor: pointer;
         }
         @keyframes float {
             0% { transform: translateY(0) rotate(-2deg); }
@@ -123,6 +128,7 @@
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
             pointer-events: none;
             z-index: 15;
+            cursor: pointer;
         }
         .hidden-gem.show {
             opacity: 1;
@@ -321,6 +327,160 @@
                     0 0 80px rgba(255, 165, 0, 0.5) }
         }
 
+        /* New Interactive Elements */
+        .interactive-element {
+            position: absolute;
+            z-index: 20;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-element:hover {
+            transform: scale(1.2);
+        }
+        
+        .message-bubble {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px;
+            max-width: 200px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            position: absolute;
+            z-index: 100;
+            pointer-events: none;
+        }
+        
+        .message-bubble.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+        
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .swiper-slide:hover img {
+            transform: scale(1.1);
+        }
+        
+        .swiper-3d .swiper-slide-shadow-left,
+        .swiper-3d .swiper-slide-shadow-right {
+            background-image: none;
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 130%;
+            height: 100%;
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .type {
+          font-family: 'Poppins', sans-serif;
+          color:#0000;
+          background:
+            linear-gradient(-90deg,#00DFFC 5px,#0000 0) 10px 0,
+            linear-gradient(#00DFFC 0 0) 0 0;
+          background-size:calc(var(--n)*1ch) 200%;
+          -webkit-background-clip:padding-box,text;
+          background-clip:padding-box,text;
+          background-repeat:no-repeat;
+          animation: 
+            b .7s infinite steps(1),   
+            t calc(var(--n)*.1s) steps(var(--n)) forwards;
+        }
+        @keyframes t{
+          from {background-size:0 200%}
+        }
+        @keyframes b{
+          50% {background-position:0 -100%,0 0}
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            bottom: -10vh;
+            animation: float-up 10s linear infinite;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+        
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .secret-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            z-index: 1000;
+            text-align: center;
+            transition: transform 0.5s ease;
+            max-width: 80%;
+        }
+        
+        .secret-message.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -340,6 +500,28 @@
     <main>
         <!-- Hero Section -->
         <section id="home" class="hero-bg min-h-screen flex flex-col items-center justify-center text-center p-4 relative">
+            <!-- Interactive Elements -->
+            <div class="interactive-element" style="top: 20%; left: 10%;" data-message="You make every day special!">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z" fill="#f9a8d4"/>
+                </svg>
+            </div>
+            
+            <div class="interactive-element" style="top: 30%; right: 15%;" data-message="Three amazing years together!">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 2H7C5.9 2 5 2.9 5 4V20C5 21.1 5.9 22 7 22H17C18.1 22 19 21.1 19 20V4C19 2.9 18.1 2 17 2ZM12 6C13.1 6 14 6.9 14 8C14 9.1 13.1 10 12 10C10.9 10 10 9.1 10 8C10 6.9 10.9 6 12 6ZM16 18H8V16.88C8 14.95 10.1 14.5 12 14.5C13.9 14.5 16 14.95 16 16.88V18Z" fill="#a78bfa"/>
+                </svg>
+            </div>
+            
+            <div class="interactive-element" style="bottom: 25%; left: 20%;" data-message="You're the best thing that ever happened to me!">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" fill="#60a5fa"/>
+                </svg>
+            </div>
+            
+            <!-- Message Bubble -->
+            <div class="message-bubble" id="interactive-message"></div>
+            
             <!-- Balloon SVGs -->
             <svg class="balloon-svg w-16 h-16 sm:w-20 sm:h-20 top-1/4 left-1/4" style="animation-delay: 1s;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 21C14.7614 21 17 18.7614 17 16C17 11 12 3 12 3C12 3 7 11 7 16C7 18.7614 9.23858 21 12 21Z" fill="#a78bfa" stroke="#9333ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -362,12 +544,15 @@
                 <svg class="hidden-gem w-6 h-6" style="top: 20%; left: 30%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#FFD700" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <svg class="hidden-gem w-8 h-8" style="top: 35%; right: 25%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#f9a8d4" stroke="#f472b6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <svg class="hidden-gem w-7 h-7" style="top: 50%; left: 40%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#a78bfa" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                
+                <!-- Additional hidden gems -->
+                <svg class="hidden-gem w-7 h-7" style="top: 60%; right: 30%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#60a5fa" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg class="hidden-gem w-6 h-6" style="top: 70%; left: 25%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#f87171" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg class="hidden-gem w-8 h-8" style="top: 80%; right: 40%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#c084fc" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
 
                 <!-- Countdown Timer -->
                 <div id="countdown" class="text-3xl sm:text-4xl font-extrabold text-white bg-white bg-opacity-10 p-4 rounded-xl shadow-lg inline-block"></div>
-                <p class="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto font-light leading-relaxed text-gray-200">
-                    Celebrating another year of you. Let's make this day unforgettable!
-                </p>
+                <p class="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto font-light leading-relaxed text-gray-200"><span class="type" style="--n:253">Celebrating another beautiful year of you, your light that brightens every room, your strength that inspires, and the endless joy you bring to everyone around you. 💖✨ Let’s make this day as unforgettable and amazing as you are! 🎉❤️</span></p>
                 <a href="#gifts" class="inline-block px-8 py-3 text-lg font-semibold rounded-full btn-primary text-white">🎉❤️With all my love, Happy birthday, my dearest.❤️🎉</a>
             </div>
             
@@ -387,6 +572,9 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Secret click area -->
+            <div class="absolute bottom-10 left-10 w-10 h-10 opacity-0 cursor-pointer" id="secret-trigger"></div>
         </section>
 
         <!-- About Section (About You) -->
@@ -407,7 +595,7 @@
             </div>
         </section>
 
-        <!-- Gifts & Wishes Section -->
+       <!-- Gifts & Wishes Section -->
         <section id="gifts" class="section py-16 md:py-24 bg-white bg-opacity-5 px-4">
             <div class="container text-center">
                 <h2 class="text-3xl font-bold text-white mb-12">Wishes</h2>
@@ -548,4 +736,3 @@
     </script>
 </body>
 </html>
-
